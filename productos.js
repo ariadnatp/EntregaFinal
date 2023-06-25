@@ -1,6 +1,6 @@
 const productos = [{
     id: 1,
-    foto: "https://postimg.cc/5YJwzwb7",
+    foto: "https://i.postimg.cc/vBgXpzjs/12.jpg",
     nombre: "SpaceX",
     precio: 8500,
     color: "negro",
@@ -8,7 +8,7 @@ const productos = [{
 },
 {
     id: 2,
-    foto: "https://postimg.cc/5YJwzwb7",
+    foto: "https://i.postimg.cc/vBgXpzjs/12.jpg",
     nombre: "NASA old",
     precio: 5900,
     color: "negro - azul",
@@ -16,7 +16,7 @@ const productos = [{
 },
 {
     id: 3,
-    foto: "https://postimg.cc/5YJwzwb7",
+    foto: "https://i.postimg.cc/vBgXpzjs/12.jpg",
     nombre: "Voyager",
     precio: 9300,
     color: "negro",
@@ -24,7 +24,7 @@ const productos = [{
 },
 {
     id: 4,
-    foto: "https://postimg.cc/5YJwzwb7",
+    foto: "https://i.postimg.cc/vBgXpzjs/12.jpg",
     nombre: "Arianne",
     precio: 1200,
     color: "azul - verde - negro",
