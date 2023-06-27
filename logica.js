@@ -9,9 +9,9 @@ let contenedorProds = document.getElementById("misprods");
     for (const producto of listaProds) {
       contenedorProds.innerHTML+=`
           <div class="card col-md-5 center">
-              <img class="card-img-top rounded mx-auto d-block" src="${producto.foto}" alt="${producto.nombre}" style="width: 170px">
+              <img class="card-img-top rounded mx-auto d-block" src="${producto.foto}" alt="${producto.nombre}" style="width: 300px">
               <div class="card-body">
-                  <h5 class="card-title">${producto.nombre}</h5>
+                  <h3 class="card-title">${producto.nombre}</h3>
                   <p class="card-text">$ ${producto.precio}</p>
                   <p class="card-text">Color: ${producto.color}</p>
                   <p class="card-text">Talle: ${producto.talle}</p>
@@ -50,19 +50,15 @@ function agregarACarro(producto){
       <td>${producto.precio}</td>
   </tr>
 `;
-
-let totalPrecio = productos.reduce((acumular, producto)=> acumular + producto.precio,0);
-console.log(totalPrecio);
-document.getElementById("total").innerText = "Total a pagar: $ " +totalPrecio;
-localStorage.setItem('carro',JSON.stringify(carro));
-
+localStorage.setItem("carro",JSON.stringify(carro));
+calcularTotal(); //llamo a funcion
 }
 
-// let total = carro.reduce((ac,prod)=> ac + prod.precio,0);
-//     console.log(total);
-//     document.getElementById('total').innerText = `Total a pagar $:${total}`;
-//     //trabajar con el storage
-//     localStorage.setItem('carro',JSON.stringify(carro));
+function calcularTotal(){
+  let totalPrecio = carro.reduce((acumular, producto)=> acumular + producto.precio,0); //el reduce se lo debo aplicar a mi base de datos (a la variable carro)
+  console.log(totalPrecio);
+  document.getElementById("total").innerHTML = "total a pagar: $ " +totalPrecio;
+}
 
 
 
