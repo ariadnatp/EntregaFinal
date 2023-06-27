@@ -30,4 +30,5 @@ const productos = [{
     color: "rosa - azul marino - negro",
     talle: "S - M - XL - XXL"
 },
+
 ];

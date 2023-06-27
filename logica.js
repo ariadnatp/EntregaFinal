@@ -1,4 +1,6 @@
-const carro = JSON.parse(localStorage.getItem('carro')) || [];
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+carrito.length = 0;
+let tableBody = document.getElementById('tablabody');
 const btnFiltrar = document.getElementById("btnFilter") //defino boton que filtra
 btnFiltrar.addEventListener("click",  filtrarPorColor); //evento a boton filtrar
 
@@ -23,44 +25,50 @@ let contenedorProds = document.getElementById("misprods");
   }
   renderizarProds(productos);
 
-
-
-  function filtrarPorColor() { //funcion de boton filtrar
-    const color = document.getElementById("inputColor").value.toLowerCase();
-    const prodsFiltradosColor = productos.filter((producto) => producto.color === "color");
-    renderizarProds(prodsFiltradosColor);
-  }  
-
-let botones = document.getElementsByClassName("compra");
+  let botones = document.getElementsByClassName("compra");
 for(const boton of botones){
   boton.addEventListener("click",()=>{
-    const prodACarro = productos.find((producto)=> producto.id ==boton.id);
+    const prodACarro = productos.find((producto)=> producto.id == boton.id);
     console.log(prodACarro);
     agregarACarro(prodACarro);
   })
 }
 
+  function filtrarPorColor() { //funcion de boton filtrar
+    const color = document.getElementById("inputColor").value.toLowerCase();
+    const prodsFiltradosColor = productos.filter((producto) => {
+      const colores = producto.color.split(" - ");
+      return colores.includes(color);
+    });
+    console.log(prodsFiltradosColor);
+    renderizarProds(prodsFiltradosColor);
+
+  }  
+
+
+
 function agregarACarro(producto){
-  carro.push(producto);
-  console.table(producto);
-  tableBody.innerHTML += `
-  <tr>
-      <td>${producto.id}</td>
-      <td>${producto.nombre}</td>
-      <td>${producto.precio}</td>
-  </tr>
-`;
-localStorage.setItem("carro",JSON.stringify(carro));
-calcularTotal(); //llamo a funcion
+  carrito.push(producto);
+  renderCarro();
 }
-
 function calcularTotal(){
-  let totalPrecio = carro.reduce((acumular, producto)=> acumular + producto.precio,0); //el reduce se lo debo aplicar a mi base de datos (a la variable carro)
+  let totalPrecio = carrito.reduce((acumular, producto)=> acumular + producto.precio,0); //el reduce se lo debo aplicar a mi base de datos (a la variable carro)
   console.log(totalPrecio);
-  document.getElementById("total").innerHTML = "total a pagar: $ " +totalPrecio;
+  document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ " +totalPrecio;
 }
-
-
+function renderCarro (){
+   tableBody.innerHTML = "";
+  carrito.forEach((producto)=>{
+    tableBody.innerHTML += `
+    <tr>
+        <td>${producto.id}</td>
+        <td>${producto.nombre}</td>
+        <td>${producto.precio}</td>
+    </tr>
+  `;
+  calcularTotal();
+  })
+}
 
 
 
