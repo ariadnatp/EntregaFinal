@@ -1,11 +1,9 @@
 const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 carrito.length = 0;
 let tableBody = document.getElementById('tablabody');
-const btnFiltrar = document.getElementById("btnFilter") //defino boton que filtra
-btnFiltrar.addEventListener("click",  filtrarPorColor); //evento a boton filtrar
 
+//cards
 let contenedorProds = document.getElementById("misprods");
-
   function renderizarProds(listaProds){
     contenedorProds.innerHTML=" "; //vacio contenedor
     for (const producto of listaProds) {
@@ -25,14 +23,9 @@ let contenedorProds = document.getElementById("misprods");
   }
   renderizarProds(productos);
 
-  let botones = document.getElementsByClassName("compra");
-for(const boton of botones){
-  boton.addEventListener("click",()=>{
-    const prodACarro = productos.find((producto)=> producto.id == boton.id);
-    console.log(prodACarro);
-    agregarACarro(prodACarro);
-  })
-}
+
+  const filtrar = document.getElementById("btnFilter") //defino boton que filtra
+  filtrar.addEventListener("click",  filtrarPorColor); //evento a boton filtrar
 
   function filtrarPorColor() { //funcion de boton filtrar
     const color = document.getElementById("inputColor").value.toLowerCase();
@@ -47,6 +40,15 @@ for(const boton of botones){
 
 
 
+  //btn "comprar"
+  let botones = document.getElementsByClassName("compra");
+  for(const boton of botones){
+  boton.addEventListener("click",()=>{
+    const prodACarro = productos.find((producto)=> producto.id == boton.id);
+    console.log(prodACarro);
+    agregarACarro(prodACarro);
+  })
+}
 function agregarACarro(producto){
   carrito.push(producto);
   renderCarro();
