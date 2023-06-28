@@ -27,28 +27,41 @@ let contenedorProds = document.getElementById("misprods");
   const filtrar = document.getElementById("btnFilter") //defino boton que filtra
   filtrar.addEventListener("click",  filtrarPorColor); //evento a boton filtrar
 
-  function filtrarPorColor() { //funcion de boton filtrar
+  function filtrarPorColor() {
     const color = document.getElementById("inputColor").value.toLowerCase();
-    const prodsFiltradosColor = productos.filter((producto) => {
-      const colores = producto.color.split(" - ");
-      return colores.includes(color);
-    });
+    let prodsFiltradosColor;
+    if (color !== "") {
+      prodsFiltradosColor = productos.filter((producto) => {
+        const colores = producto.color.split(" - ");
+        return colores.includes(color);
+      });
+    } else {
+      prodsFiltradosColor = productos;
+    }
     console.log(prodsFiltradosColor);
     renderizarProds(prodsFiltradosColor);
-
-  }  
-
-
-
-  //btn "comprar"
-  let botones = document.getElementsByClassName("compra");
-  for(const boton of botones){
-  boton.addEventListener("click",()=>{
-    const prodACarro = productos.find((producto)=> producto.id == boton.id);
-    console.log(prodACarro);
-    agregarACarro(prodACarro);
-  })
-}
+    // Actualizar los eventos de compra después de aplicar el filtro
+    actualizarEventosCompra();
+  }
+  
+  // Función para agregar eventos de compra a los botones
+  function agregarEventoCompra(boton) {
+    boton.addEventListener("click", () => {
+      const prodACarro = productos.find((producto) => producto.id == boton.id);
+      console.log(prodACarro);
+      agregarACarro(prodACarro);
+    });
+  }
+  // Función para actualizar los eventos de compra en todos los botones
+  function actualizarEventosCompra() {
+    let botones = document.getElementsByClassName("compra");
+    for (const boton of botones) {
+      agregarEventoCompra(boton);
+    }
+  }
+  // Llamar a la función para agregar los eventos de compra inicialmente
+  actualizarEventosCompra();
+  
 function agregarACarro(producto){
   carrito.push(producto);
   renderCarro();
