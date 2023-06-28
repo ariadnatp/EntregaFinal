@@ -8,7 +8,7 @@ const productos = [{
 },
 {
     id: 2,
-    foto: "https://i.postimg.cc/vBgXpzjs/12.jpg",
+    foto: "https://i.postimg.cc/N0kkYFT1/Kiribati-3.jpg",
     nombre: "NASA old",
     precio: 5900,
     color: "negro - azul",

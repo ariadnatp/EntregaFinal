@@ -1,4 +1,4 @@
-const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 carrito.length = 0;
 let tableBody = document.getElementById('tablabody');
 
@@ -66,6 +66,10 @@ function agregarACarro(producto){
   carrito.push(producto);
   renderCarro();
 }
+function eliminarDelCarrito(id) {
+  carrito = carrito.filter((producto) => producto.id !== id);
+  renderCarro();
+}
 function calcularTotal(){
   let totalPrecio = carrito.reduce((acumular, producto)=> acumular + producto.precio,0); //el reduce se lo debo aplicar a mi base de datos (a la variable carro)
   console.log(totalPrecio);
@@ -79,12 +83,19 @@ function renderCarro (){
         <td>${producto.id}</td>
         <td>${producto.nombre}</td>
         <td>${producto.precio}</td>
+        <td><button class="eliminar-btn btn btn-secondary">Eliminar</button></td>
     </tr>
   `;
   calcularTotal();
   })
+  const botonesEliminar = document.getElementsByClassName("eliminar-btn");
+  Array.from(botonesEliminar).forEach((boton, index) => {
+    boton.addEventListener("click", function() {
+      const id = carrito[index].id;
+      eliminarDelCarrito(id);
+    });
+  });
 }
-
 
 
 
