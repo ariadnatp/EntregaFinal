@@ -1,4 +1,5 @@
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+localStorage.clear();
 carrito.length = 0;
 let tableBody = document.getElementById('tablabody');
 
@@ -8,7 +9,7 @@ let contenedorProds = document.getElementById("misprods");
     contenedorProds.innerHTML=" "; //vacio contenedor
     for (const producto of listaProds) {
       contenedorProds.innerHTML+=`
-          <div class="card col-md-5 center">
+          <div class="card col-md-4 center card border-light mb-3">
               <img class="card-img-top rounded mx-auto d-block" src="${producto.foto}" alt="${producto.nombre}" style="width: 300px">
               <div class="card-body">
                   <h3 class="card-title">${producto.nombre}</h3>
@@ -64,11 +65,20 @@ let contenedorProds = document.getElementById("misprods");
   
 function agregarACarro(producto){
   carrito.push(producto);
+  guardarCarritoEnLocalStorage();
   renderCarro();
+  Swal.fire(
+    'Se agrego el producto al carrito!',
+    '',
+    'success'
+  )
 }
 function eliminarDelCarrito(id) {
   carrito = carrito.filter((producto) => producto.id !== id);
   renderCarro();
+  if (eliminarDelCarrito.length = 0){
+    document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ " ;
+  }
 }
 function calcularTotal(){
   let totalPrecio = carrito.reduce((acumular, producto)=> acumular + producto.precio,0); //el reduce se lo debo aplicar a mi base de datos (a la variable carro)
@@ -76,7 +86,7 @@ function calcularTotal(){
   document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ " +totalPrecio;
 }
 function renderCarro (){
-   tableBody.innerHTML = "";
+  tableBody.innerHTML = "";
   carrito.forEach((producto)=>{
     tableBody.innerHTML += `
     <tr>
@@ -97,7 +107,20 @@ function renderCarro (){
   });
 }
 
-
+//function guardar en storage
+function guardarCarritoEnLocalStorage() {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+let finCompra = document.getElementById("finalizarBtn");
+finCompra.onclick = ()=>{
+  localStorage.clear();
+  tableBody.innerHTML = "";
+  document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ " ;
+  Toastify({
+    text: "Finalizaste tu compra, pronto recibiras tu pedido!",
+    duration: 3000
+  }).showToast();
+}
 
 
 
