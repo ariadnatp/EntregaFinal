@@ -1,5 +1,5 @@
-let productos; //si pongo const no lo puedo pisar dsp
-obtenerJSONProds();
+let productos;
+obtenerJsonProds();
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 localStorage.clear();
 carrito.length = 0;
@@ -25,9 +25,10 @@ let contenedorProds = document.getElementById("misprods");
         `;
       }
   }
+
+  //FILTRAR POR COLOR
   const filtrar = document.getElementById("btnFilter") //defino boton que filtra
   filtrar.addEventListener("click",  filtrarPorColor); //evento a boton filtrar
-
   function filtrarPorColor() {
     const color = document.getElementById("inputColor").value.toLowerCase();
     let prodsFiltradosColor;
@@ -41,28 +42,26 @@ let contenedorProds = document.getElementById("misprods");
     }
     console.log(prodsFiltradosColor);
     renderizarProds(prodsFiltradosColor);
-    // Actualizar los eventos de compra después de aplicar el filtro
     actualizarEventosCompra();
   }
   
-  // Función para agregar eventos de compra a los botones
-  function agregarEventoCompra(boton) {
+  function agregarEventoCompra(boton) { //agrega evento de compra a los botones
     boton.addEventListener("click", () => {
       const prodACarro = productos.find((producto) => producto.id == boton.id);
       console.log(prodACarro);
       agregarACarro(prodACarro);
     });
   }
-  // Función para actualizar los eventos de compra en todos los botones
   function actualizarEventosCompra() {
     let botones = document.getElementsByClassName("compra");
     for (const boton of botones) {
       agregarEventoCompra(boton);
     }
   }
-  // Llamar a la función para agregar los eventos de compra inicialmente
   actualizarEventosCompra();
-  
+  function guardarCarritoEnLocalStorage() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+  }
 function agregarACarro(producto){
   carrito.push(producto);
   guardarCarritoEnLocalStorage();
@@ -73,43 +72,33 @@ function agregarACarro(producto){
     'success'
   )
 }
-function eliminarDelCarrito(id) {
-  const index = carrito.findIndex(producto => producto.id === id);
-  if (index !== -1) {
-    carrito.splice(index, 1);
-    renderCarro();
-  }
-  if (carrito.length === 0) {
-    document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ ";
-  }
-}
 function calcularTotal(){
   let totalPrecio = carrito.reduce((acumular, producto)=> acumular + producto.precio,0); //el reduce se lo debo aplicar a mi base de datos (a la variable carro)
   console.log(totalPrecio);
   document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ " +totalPrecio;
 }
-function renderCarro() {
+function renderCarro (){
   tableBody.innerHTML = "";
-  carrito.forEach((producto) => {
+  carrito.forEach((producto, indice)=>{
     tableBody.innerHTML += `
-      <tr>
-          <td>${producto.id}</td>
-          <td>${producto.nombre}</td>
-          <td>${producto.precio}</td>
-          <td><button class="eliminar-btn btn btn-secondary">Eliminar</button></td>
-      </tr>
-    `;
-  });
+    <tr>
+        <td>${producto.id}</td>
+        <td>${producto.nombre}</td>
+        <td>${producto.precio}</td>
+        <td><button onclick="eliminarDelCarrito(${indice})" class="btn btn-secondary">Eliminar</button></td>
+    </tr>
+  `;
   calcularTotal();
-
-  const botonesEliminar = document.getElementsByClassName("eliminar-btn");
-  Array.from(botonesEliminar).forEach((boton, index) => {
-    boton.addEventListener("click", function () {
-      const id = carrito[index].id;
-      eliminarDelCarrito(id);
-    });
-  });
+  })
 }
+function eliminarDelCarrito(indice) {
+  const productoEliminado = carrito[indice];
+  carrito.splice(indice, 1);
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+  renderCarro();
+  calcularTotal();
+}
+
 
 //function guardar en storage
 function guardarCarritoEnLocalStorage() {
@@ -127,11 +116,11 @@ finCompra.onclick = ()=>{
 }
 
 //JSON
-async function obtenerJSONProds(){
-  //parte asincronica
-  const URLJSON = '/productos.js';
+async function obtenerJsonProds(){
+  const URLJSON = '/productos.json';
   const respuesta = await fetch(URLJSON);
-  const data = await respuestas.json();
+  const data = await respuesta.json();
+  console.log(data);
   productos = data;
-  renderizarProds(productos);
+  renderizarProductos(productos);
 }
