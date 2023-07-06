@@ -1,3 +1,5 @@
+let productos; //si pongo const no lo puedo pisar dsp
+obtenerJSONProds();
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 localStorage.clear();
 carrito.length = 0;
@@ -13,6 +15,7 @@ let contenedorProds = document.getElementById("misprods");
               <img class="card-img-top rounded mx-auto d-block" src="${producto.foto}" alt="${producto.nombre}" style="width: 300px">
               <div class="card-body">
                   <h3 class="card-title">${producto.nombre}</h3>
+                  <p class="card-text text-primary">${producto.edicion}</p>
                   <p class="card-text">$ ${producto.precio}</p>
                   <p class="card-text">Color: ${producto.color}</p>
                   <p class="card-text">Talle: ${producto.talle}</p>
@@ -22,9 +25,6 @@ let contenedorProds = document.getElementById("misprods");
         `;
       }
   }
-  renderizarProds(productos);
-
-
   const filtrar = document.getElementById("btnFilter") //defino boton que filtra
   filtrar.addEventListener("click",  filtrarPorColor); //evento a boton filtrar
 
@@ -74,10 +74,13 @@ function agregarACarro(producto){
   )
 }
 function eliminarDelCarrito(id) {
-  carrito = carrito.filter((producto) => producto.id !== id);
-  renderCarro();
-  if (eliminarDelCarrito.length = 0){
-    document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ " ;
+  const index = carrito.findIndex(producto => producto.id === id);
+  if (index !== -1) {
+    carrito.splice(index, 1);
+    renderCarro();
+  }
+  if (carrito.length === 0) {
+    document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ ";
   }
 }
 function calcularTotal(){
@@ -85,22 +88,23 @@ function calcularTotal(){
   console.log(totalPrecio);
   document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ " +totalPrecio;
 }
-function renderCarro (){
+function renderCarro() {
   tableBody.innerHTML = "";
-  carrito.forEach((producto)=>{
+  carrito.forEach((producto) => {
     tableBody.innerHTML += `
-    <tr>
-        <td>${producto.id}</td>
-        <td>${producto.nombre}</td>
-        <td>${producto.precio}</td>
-        <td><button class="eliminar-btn btn btn-secondary">Eliminar</button></td>
-    </tr>
-  `;
+      <tr>
+          <td>${producto.id}</td>
+          <td>${producto.nombre}</td>
+          <td>${producto.precio}</td>
+          <td><button class="eliminar-btn btn btn-secondary">Eliminar</button></td>
+      </tr>
+    `;
+  });
   calcularTotal();
-  })
+
   const botonesEliminar = document.getElementsByClassName("eliminar-btn");
   Array.from(botonesEliminar).forEach((boton, index) => {
-    boton.addEventListener("click", function() {
+    boton.addEventListener("click", function () {
       const id = carrito[index].id;
       eliminarDelCarrito(id);
     });
@@ -122,5 +126,12 @@ finCompra.onclick = ()=>{
   }).showToast();
 }
 
-
-
+//JSON
+async function obtenerJSONProds(){
+  //parte asincronica
+  const URLJSON = '/productos.js';
+  const respuesta = await fetch(URLJSON);
+  const data = await respuestas.json();
+  productos = data;
+  renderizarProds(productos);
+}
