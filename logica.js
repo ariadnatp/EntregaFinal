@@ -7,9 +7,9 @@ let tableBody = document.getElementById('tablabody');
 
 //cards
 let contenedorProds = document.getElementById("misprods");
-  function renderizarProds(listaProds){
+  function renderizarProds(productos){
     contenedorProds.innerHTML=" "; //vacio contenedor
-    for (const producto of listaProds) {
+    for (const producto of productos) {
       contenedorProds.innerHTML+=`
           <div class="card col-md-4 center card border-light mb-3">
               <img class="card-img-top rounded mx-auto d-block" src="${producto.foto}" alt="${producto.nombre}" style="width: 300px">
@@ -25,7 +25,7 @@ let contenedorProds = document.getElementById("misprods");
         `;
       }
   }
-
+  
   //FILTRAR POR COLOR
   const filtrar = document.getElementById("btnFilter") //defino boton que filtra
   filtrar.addEventListener("click",  filtrarPorColor); //evento a boton filtrar
@@ -117,10 +117,10 @@ finCompra.onclick = ()=>{
 
 //JSON
 async function obtenerJsonProds(){
-  const URLJSON = '/productos.json';
+  const URLJSON = './productos.json';
   const respuesta = await fetch(URLJSON);
   const data = await respuesta.json();
   console.log(data);
   productos = data;
-  renderizarProductos(productos);
+  renderizarProds(productos);
 }
