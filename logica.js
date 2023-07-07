@@ -1,5 +1,4 @@
 let productos;
-obtenerJsonProds();
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 localStorage.clear();
 carrito.length = 0;
@@ -62,7 +61,22 @@ let contenedorProds = document.getElementById("misprods");
   function guardarCarritoEnLocalStorage() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
   }
-function agregarACarro(producto){
+
+  function renderCarro (){
+    tableBody.innerHTML = "";
+    carrito.forEach((producto, indice)=>{
+      tableBody.innerHTML += `
+      <tr>
+          <td>${producto.id}</td>
+          <td>${producto.nombre}</td>
+          <td>${producto.precio}</td>
+          <td><button onclick="eliminarDelCarrito(${indice})" class="btn btn-secondary">Eliminar</button></td>
+      </tr>
+    `;
+    calcularTotal();
+    })
+  }
+  function agregarACarro(producto){
   carrito.push(producto);
   guardarCarritoEnLocalStorage();
   renderCarro();
@@ -76,20 +90,6 @@ function calcularTotal(){
   let totalPrecio = carrito.reduce((acumular, producto)=> acumular + producto.precio,0); //el reduce se lo debo aplicar a mi base de datos (a la variable carro)
   console.log(totalPrecio);
   document.getElementById("total").innerHTML = "TOTAL A PAGAR: $ " +totalPrecio;
-}
-function renderCarro (){
-  tableBody.innerHTML = "";
-  carrito.forEach((producto, indice)=>{
-    tableBody.innerHTML += `
-    <tr>
-        <td>${producto.id}</td>
-        <td>${producto.nombre}</td>
-        <td>${producto.precio}</td>
-        <td><button onclick="eliminarDelCarrito(${indice})" class="btn btn-secondary">Eliminar</button></td>
-    </tr>
-  `;
-  calcularTotal();
-  })
 }
 function eliminarDelCarrito(indice) {
   const productoEliminado = carrito[indice];
@@ -123,4 +123,4 @@ async function obtenerJsonProds(){
   console.log(data);
   productos = data;
   renderizarProds(productos);
-}
+} obtenerJsonProds();

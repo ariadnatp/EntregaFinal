@@ -1,11 +1,9 @@
 
-  html {
-    margin-left: 2rem;
-    margin-bottom: 2rem;
-    font-size: 62, 5%;
-    font-family: 'Jura', sans-serif;
-  }
-
   .header{
     background-color: black;
   }
+  .textCard{
+    font-size: 70px;
+    font-family: 'Jura', sans-serif;
+  }
+  
