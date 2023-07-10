@@ -23,11 +23,17 @@ let contenedorProds = document.getElementById("misprods");
           </div>
         `;
       }
-  }
+      actualizarEventosCompra();
+    } 
   
   //FILTRAR POR COLOR
   const filtrar = document.getElementById("btnFilter") //defino boton que filtra
-  filtrar.addEventListener("click",  filtrarPorColor); //evento a boton filtrar
+filtrar.addEventListener("click", filtrarPorColor); //evento a boton filtrar
+const eliminarFiltro = document.createElement("button"); //boton eliminar filtro
+eliminarFiltro.textContent = "Eliminar Filtro";
+eliminarFiltro.classList.add("btn", "btn-secondary", "ml-2");
+eliminarFiltro.addEventListener("click", eliminarFiltroColor);
+filtrar.parentNode.insertBefore(eliminarFiltro, filtrar.nextSibling);
   function filtrarPorColor() {
     const color = document.getElementById("inputColor").value.toLowerCase();
     let prodsFiltradosColor;
@@ -43,7 +49,13 @@ let contenedorProds = document.getElementById("misprods");
     renderizarProds(prodsFiltradosColor);
     actualizarEventosCompra();
   }
-  
+  function eliminarFiltroColor() {
+    document.getElementById("inputColor").value = ""; // Limpiar valor del input de color
+    renderizarProds(productos); // Mostrar todos los productos
+    actualizarEventosCompra(); // Actualizar eventos de compra
+  }
+
+
   function agregarEventoCompra(boton) { //agrega evento de compra a los botones
     boton.addEventListener("click", () => {
       const prodACarro = productos.find((producto) => producto.id == boton.id);
@@ -124,3 +136,4 @@ async function obtenerJsonProds(){
   productos = data;
   renderizarProds(productos);
 } obtenerJsonProds();
+
