@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="buzos temáticos de espacio, buzos estampados de espacio, buzos espaciales lisos, trajes espaciales, ropa espacial, trajes de astronauta, ropa de astronauta">
+    <meta name="description" content="KIRIBATI es una e-commerce destinada a la comercializacion de buzos tanto estampados como lisos! Queremos ofrecerles a nuestros clientes la calidad y los diseños que buscan!">
+    <meta name="author" content="Ariadna Pellejero">
+    <meta name="copyright" content="copyright 2023 - attico">
     <title>KIRIBATI</title>
     <link rel="stylesheet" href="./style.css">
-    <!-- <link rel="shortcut icon" href="./assets/img/planta.ico" type="image/x-icon"> -->
+    <link rel="shortcut icon" href="./img/flag-for-kiribati_1f1f0-1f1ee.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,17 +19,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Jura:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid bg-black">
-              <a class="navbar-brand text-light" href="./index.html">KIRIBATI</a>
-            </div>
-            <div>
-              <button class="btn btn-outline-light"><a href="./carrito.html"></a>Ver carrito</button>
-            </div>
-          </nav>
-    </header>
-   <div>
+  <header class="header">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid bg-black">
+        <a class="textNav" href="./index.html">KIRIBATI</a>
+      </div>
+      <div>
+        <a href="carrito.html" class="btn btn-outline-light">Carrito</a>
+      </div>
+    </nav>
+  </header>
+  <div>
     <div id="carouselExampleIndicators" class="carousel slide">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -53,60 +58,44 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-   </div>
-    <div style="background-color: #fffdfd">
-        <img src="" alt="">
-        <h1 class="text-center">KIRIBATI</h1>
-        <h2 class="text-center">buzos con estilos</h2>
-    </div> 
-    <!-- Filtro -->
+  </div>
+  <div class="text-center" style="background-color: #fffdfd">
+    <img src="./img/flag-for-kiribati_1f1f0-1f1ee.png" class="imgK" alt="">
+    <h1 class="tittleH1">KIRIBATI</h1>
+    <h2 class="tittleH2">buzos con estilos</h2>
+  </div>
+  <div class="filter">
+    <h3>FILTRAR POR</h3>
     <div>
-        <h3>FILTRAR POR:</h3>
-        <div>
-            <div>
-                <h4>Color:</h4>
-                <input  type="text" id="inputColor" placeholder="Ingrese un color">
-                <button class="btn btn-secondary" id="btnFilter">Filtrar</button>
-            </div>
-            <!-- <div>
-                <h4>Talle:</h4>
-                <input type="text" id="inputTalle" placeholder="Ingrese un talle">
-                <button id="btn-filter">Filtrar</button>
-            </div> -->
-        </div>
+      <h4>Color:</h4>
+      <input  type="text" id="inputColor" placeholder="Ingrese un color">
+      <button class="btn btn-dark" id="btnFilter">Filtrar</button>
     </div>
-    <div>
-        <div id="misprods" class="row justify-content-center">
-    </div>
-    <div>
-      <h4>Tu carrito:</h4>
-      <table class="table">
-        <thead>
-          <tr class="text-center">
-            <th>ID</th>
-            <th>NOMBRE</th>
-            <th>PRECIO</th>
-          </tr>
-        </thead>
-        <tbody class="text-center" id="tablabody">
-          <!-- aqui tabla carrito -->
-        </tbody>
-      </table>
-      <h4 id="total" >TOTAL A PAGAR: $</h4>
-      <button id="finalizarBtn" class="btn btn-outline-primary">Finalizar compra</button>
-
-    </div>
-
-
-
-
-
-    <footer class=" bg-body-tertiary">
-      <h2 class="text-center h5">Contactanos!</h2>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="logica.js"></script>
+  </div>
+  <div class="paddingBody">
+    <div id="misprods" class="row justify-content-center">
+  </div>
+  <div class="paddingBody">
+    <h4>Tu carrito:</h4>
+    <table class="table">
+      <thead>
+        <tr class="text-center">
+          <th>ID</th>
+          <th>NOMBRE</th>
+          <th>PRECIO</th>
+        </tr>
+      </thead>
+      <tbody class="text-center" id="tablabody"></tbody>
+    </table>
+    <h4 id="total" >TOTAL A PAGAR: $</h4>
+    <button id="finalizarBtn" class="btn btn-outline-primary">Finalizar compra</button>
+  </div>
+  <footer class="footer">
+    <h2 class="text-center h5">Contactanos!</h2>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="logica.js"></script>
 </body>
 </html>
