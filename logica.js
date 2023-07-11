@@ -1,9 +1,8 @@
 let productos;
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-localStorage.clear();
-carrito.length = 0;
+// localStorage.clear();
+// carrito.length = 0;
 let tableBody = document.getElementById('tablabody');
-
 //cards
 let contenedorProds = document.getElementById("misprods");
   function renderizarProds(productos){
@@ -23,17 +22,21 @@ let contenedorProds = document.getElementById("misprods");
           </div>
         `;
       }
+      if(carrito.length > 0){
+        renderCarro();
+      }
       actualizarEventosCompra();
     } 
   
   //FILTRAR POR COLOR
   const filtrar = document.getElementById("btnFilter") //defino boton que filtra
-filtrar.addEventListener("click", filtrarPorColor); //evento a boton filtrar
-const eliminarFiltro = document.createElement("button"); //boton eliminar filtro
-eliminarFiltro.textContent = "Eliminar Filtro";
-eliminarFiltro.classList.add("btn", "btn-secondary", "ml-2");
-eliminarFiltro.addEventListener("click", eliminarFiltroColor);
-filtrar.parentNode.insertBefore(eliminarFiltro, filtrar.nextSibling);
+  filtrar.addEventListener("click", filtrarPorColor); //evento a boton filtrar
+  const eliminarFiltro = document.createElement("button"); //boton eliminar filtro
+  eliminarFiltro.textContent = "Eliminar Filtro";
+  eliminarFiltro.classList.add("btn", "btn-secondary", "ml-2");
+  eliminarFiltro.addEventListener("click", eliminarFiltroColor);
+  filtrar.parentNode.insertBefore(eliminarFiltro, filtrar.nextSibling);
+
   function filtrarPorColor() {
     const color = document.getElementById("inputColor").value.toLowerCase();
     let prodsFiltradosColor;
@@ -42,9 +45,15 @@ filtrar.parentNode.insertBefore(eliminarFiltro, filtrar.nextSibling);
         const colores = producto.color.split(" - ");
         return colores.includes(color);
       });
-    } else {
-      prodsFiltradosColor = productos;
-    }
+      if (prodsFiltradosColor.length === 0){
+        Toastify({
+          text: "Lo sentimos no tenemos disponible ese producto!",
+          duration: 3000,
+        }).showToast();
+    }  return;
+  }else{
+    prodsFiltradosColor = productos;
+  }
     console.log(prodsFiltradosColor);
     renderizarProds(prodsFiltradosColor);
     actualizarEventosCompra();
@@ -54,6 +63,7 @@ filtrar.parentNode.insertBefore(eliminarFiltro, filtrar.nextSibling);
     renderizarProds(productos); // Mostrar todos los productos
     actualizarEventosCompra(); // Actualizar eventos de compra
   }
+
 
 
   function agregarEventoCompra(boton) { //agrega evento de compra a los botones
@@ -110,8 +120,6 @@ function eliminarDelCarrito(indice) {
   renderCarro();
   calcularTotal();
 }
-
-
 //function guardar en storage
 function guardarCarritoEnLocalStorage() {
   localStorage.setItem('carrito', JSON.stringify(carrito));
