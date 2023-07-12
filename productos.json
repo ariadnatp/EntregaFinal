@@ -3,7 +3,7 @@
         "id": 1,
         "foto": "https://i.postimg.cc/VNhjZY49/Kiribati-1.jpg",
         "nombre": "SpaceX",
-        "edicion": "Edición Espacial",
+        "edicion": "Edición Space",
         "precio": 8500,
         "color": "negro",
         "talle": "S - M - XL"
@@ -12,7 +12,7 @@
         "id": 2,
         "foto": "https://i.postimg.cc/N0kkYFT1/Kiribati-3.jpg",
         "nombre": "NASA old",
-        "edicion": "Edición Espacial",
+        "edicion": "Edición Space",
         "precio": 5900,
         "color": "azul",
         "talle": "M - XL"
@@ -21,7 +21,7 @@
         "id": 3,
         "foto": "https://i.postimg.cc/8ztdWd60/Kiribati.jpg",
         "nombre": "Voyager",
-        "edicion": "Edición Espacial",
+        "edicion": "Edición Space",
         "precio": 9300,
         "color": "negro - azul marino",
         "talle": "S"
@@ -30,7 +30,7 @@
         "id": 4,
         "foto": "https://i.postimg.cc/0yby04R1/14.jpg",
         "nombre": "NASA Transborder Old",
-        "edicion": "Edición Espacial",
+        "edicion": "Edición Space",
         "precio": 8500,
         "color": "negro",
         "talle": "S - M - XL"
@@ -39,7 +39,7 @@
         "id": 5,
         "foto": "https://i.postimg.cc/2yRnm2sV/Kiribati-2.jpg",
         "nombre": "Arianne",
-        "edicion": "Edición Espacial",
+        "edicion": "Edición Space",
         "precio": 6200,
         "color": "rosa",
         "talle": "S - M - XL - XXL"

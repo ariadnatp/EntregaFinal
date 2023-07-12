@@ -21,7 +21,7 @@ function renderizarProds(productos) {
         </div>
       </div>
     `;
-  }
+  } 
   actualizarEventosCompra();
   if (carrito.length > 0) {
     renderCarro();
