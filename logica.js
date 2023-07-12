@@ -82,22 +82,22 @@ function renderCarro() { //funcion que muestra los productos (que estan en el ca
   tableBody.innerHTML = "";
   carrito.forEach((producto, indice) => {
     tableBody.innerHTML += `
-      <tr>
-        <td>${producto.id}</td>
-        <td>${producto.nombre}</td>
-        <td>${producto.precio}</td>
-        <td><button onclick="eliminarDelCarrito(${indice})" class="btn btn-secondary">Eliminar</button></td>
-      </tr>
-    `;
-    calcularTotal();
-  });
-}
-function agregarACarro(producto) {
-  carrito.push(producto);
-  guardarCarritoEnLocalStorage();
-  renderCarro();
-  Swal.fire('Se agrego el producto al carrito!', '', 'success');
-}
+     <tr>
+     <td>${producto.id}</td>
+     <td>${producto.nombre}</td>
+     <td>${producto.precio}</td>
+     <td><button onclick="eliminarDelCarrito(${indice})" class="btn btn-secondary">Eliminar</button></td>
+     </tr>
+     `;
+     calcularTotal();
+    });
+  }
+  function agregarACarro(producto) {
+    carrito.push(producto);
+    guardarCarritoEnLocalStorage();
+    renderCarro();
+    Swal.fire('Se agrego el producto al carrito!', '', 'success');
+  }
 
 ////CALCULAR TOTAL DE LA COMPRA REALIZADA
 function calcularTotal() {
